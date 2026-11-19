@@ -4,12 +4,12 @@ AI-powered scholarship and admission assistant. Admins upload PDFs; students ask
 
 ## Architecture
 
-React (Vite + Tailwind) → FastAPI → PyMuPDF (text) → Sentence Transformers (embeddings) → Pinecone (vectors) → Gemini (answer from retrieved passages only).
+React (Vite + Tailwind) → FastAPI → PyMuPDF (text) → Google Gemini Embeddings (`gemini-embedding-001`) → Pinecone (vectors) → Gemini (`gemini-2.5-flash` for answers).
 
 ## 1. Pinecone setup
 
 Create a serverless index with:
-- Dimension: **384** (matches `all-MiniLM-L6-v2`)
+- Dimension: **768** (matches Google `gemini-embedding-001` / `text-embedding-004`)
 - Metric: **cosine**
 - Name: same as `PINECONE_INDEX` (default `scholarlens`)
 

@@ -16,7 +16,7 @@ def _get_client():
 
 
 def embed_texts(texts: list[str], batch_size: int = 50) -> list[list[float]]:
-    """Embed texts using Gemini Embedding API (gemini-embedding-001 / text-embedding-004)."""
+    """Embed texts using Gemini Embedding API (gemini-embedding-001)."""
     if not texts:
         return []
 
@@ -31,6 +31,7 @@ def embed_texts(texts: list[str], batch_size: int = 50) -> list[list[float]]:
             contents=batch,
             config=types.EmbedContentConfig(
                 task_type="RETRIEVAL_DOCUMENT",
+                output_dimensionality=768,
             ),
         )
         for emb in response.embeddings:
@@ -47,6 +48,7 @@ def embed_query(text: str) -> list[float]:
         contents=text,
         config=types.EmbedContentConfig(
             task_type="RETRIEVAL_QUERY",
+            output_dimensionality=768,
         ),
     )
     if response.embeddings:
